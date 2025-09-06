@@ -23,9 +23,35 @@ class InicioPAM{
         
     }
     desplegarFechas(){
-
+        const contenedor = document.getElementByID("contenido");
+        contenedor.innerHTML = 
+        `<h1>Fechas de los Exámenes</h1> <ol> 
+        <li>Parcial 1: 29/09/2025</li>
+        <li>Parcial 2: 03/10/2025</li>
+        <li>Parcial 3: 01/12/2025</li>
+        </ol>`;
     }
     desplegarPorcentajes(){
-
+        const contenedor = document.getElementByID("contenido");
+        contenedor.innerHTML = 
+        `<h1>Porcentajes</h1> <ol>
+        <li>Parcial 1 </li>
+        <li>Conocimiento: 40% </li>
+        <li>Desempeño: 20% </li>
+        <li>Producto: 30% </li>
+        <li>PI: 10% </li>
+        </ol>
+        <li>Parcial 2 </li>
+        <li>Conocimiento: 40% </li>
+        <li>Desempeño: 20% </li>
+        <li>Producto: 20% </li>
+        <li>PI: 20% </li>
+        </ol>
+        <li>Parcial 3 </li>
+        <li>Conocimiento: 20% </li>
+        <li>Desempeño: 10% </li>
+        <li>Producto: 40% </li>
+        <li>PI: 30% </li>
+        </ol>`;
     }
 }
