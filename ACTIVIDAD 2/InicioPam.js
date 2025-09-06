@@ -1,6 +1,6 @@
 class InicioPAM{
 
-    desplegarReglamento(){
+    desplegarReglamentoClase(){
         const contenedor = document.getElementById("contenido");
         contenedor.innerHTML = 
         `<h1>Reglamento</h1> <ol> 
@@ -13,8 +13,8 @@ class InicioPAM{
         </ol>`;
         
     }
-    desplegarLineamientos(){
-        const contenedor = document.getElementByID("contenido");
+    desplegarLineamientosClassroom(){
+        const contenedor = document.getElementById("contenido");
         contenedor.innerHTML = 
         `<h1>Lineamientos</h1> <ol> 
         <li> Todos los trabajos llevan portada estilo libre: Logo UPQ, tema, datos del alumno, materia</li>
@@ -22,8 +22,8 @@ class InicioPAM{
         </ol>`;
         
     }
-    desplegarFechas(){
-        const contenedor = document.getElementByID("contenido");
+    desplegarFechasExamenes(){
+        const contenedor = document.getElementById("contenido");
         contenedor.innerHTML = 
         `<h1>Fechas de los Exámenes</h1> <ol> 
         <li>Parcial 1: 29/09/2025</li>
@@ -31,8 +31,8 @@ class InicioPAM{
         <li>Parcial 3: 01/12/2025</li>
         </ol>`;
     }
-    desplegarPorcentajes(){
-        const contenedor = document.getElementByID("contenido");
+    desplegarPorcentajesMateria(){
+        const contenedor = document.getElementById("contenido");
         contenedor.innerHTML = 
         `<h1>Porcentajes</h1> <ol>
         <li>Parcial 1 </li>
