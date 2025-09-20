@@ -3,15 +3,18 @@ const personas = [
     {nombre: "Luis", edad: 35},
     {nombre: "Maria", edad: 28}    
 ]
+// EJERCICIO CON FIND() //
 let resultadoFind = personas.find(persona => persona.nombre == "Luis");
 console.log("Find()")
 console.log(resultadoFind);
 console.log("")
 
+// EJERCICIO CON FOREACH() 
 console.log("forEach()")
 personas.forEach((persona) => console.log("El nombre de la persona es " + persona.nombre + " y su edad es " + persona.edad));
 console.log("")
 
+//EJERCICIO CON REDUCE()
 console.log("reduce()")
 let sumaEdades = personas.reduce((sumaTotal, persona) => sumaTotal + persona.edad, 0)
 console.log("La suma total de las edades de las personas es de " + sumaEdades)
