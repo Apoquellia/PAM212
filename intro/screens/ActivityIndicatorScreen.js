@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Button, ActivityIndicator, StyleSheet } from 'react-native-web';
 
 
-export default function ActivityIndicator() {
+export default function ActivityIndicatorScreen() {
 
 
 const [cargando, setCargando] = useState(false);
