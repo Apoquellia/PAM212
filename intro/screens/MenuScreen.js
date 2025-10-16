@@ -2,7 +2,7 @@ import { Text, StyleSheet, View, Button } from 'react-native'
 import React, { useState } from 'react';
 import ContadorScreen from './ContadorScreen';
 import BotonesScreen from './BotonesScreen';
-
+import ActivityIndicator from './ActivityIndicatorScreen';
 
 export default function MenuScreen() {
     const [screen,setScreen] = useState('menu');
@@ -12,6 +12,8 @@ export default function MenuScreen() {
             return <ContadorScreen/>;
         case 'botones': 
             return <BotonesScreen/>;
+        case 'activityIndicator':
+            return <ActivityIndicator/>;
         case 'menu':
             default:
                 return(
@@ -20,9 +22,10 @@ export default function MenuScreen() {
                 <View style={styles.contenedorBotones}>
         <Button onPress={()=>setScreen('contador')} title = 'Pract:Contador'/>
         <Button onPress={()=>setScreen('botones')} title = 'Pract:Botones' />
-        <Button onPress={()=>setScreen('textImput')} title = 'Pract:TextImput' />
+        <Button onPress={()=>setScreen('textInput')} title = 'Pract:TextInput' />
         <Button onPress={()=>setScreen('imageBackground')} title = 'Pract:ImageBackground' />
         <Button onPress={()=>setScreen('scrollView')} title = 'Pract:ScrollView' />
+        <Button onPress={()=>setScreen('activityIndicator')} title = 'Pract:ActivityIndicator' />
         <Button onPress={()=>setScreen('flatList')} title = 'Pract:FlatList' />
         <Button onPress={()=>setScreen('modal')} title = 'Pract:Modal' />
         <Button onPress={()=>setScreen('bottomSheet')} title = 'Pract:BottomSheet' />
