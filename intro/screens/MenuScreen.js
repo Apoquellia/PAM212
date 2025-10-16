@@ -2,7 +2,7 @@ import { Text, StyleSheet, View, Button } from 'react-native'
 import React, { useState } from 'react';
 import ContadorScreen from './ContadorScreen';
 import BotonesScreen from './BotonesScreen';
-import ActivityIndicator from './ActivityIndicatorScreen';
+import ActivityIndicatorScreen from './ActivityIndicatorScreen';
 
 export default function MenuScreen() {
     const [screen,setScreen] = useState('menu');
@@ -13,7 +13,7 @@ export default function MenuScreen() {
         case 'botones': 
             return <BotonesScreen/>;
         case 'activityIndicator':
-            return <ActivityIndicator/>;
+            return <ActivityIndicatorScreen/>;
         case 'menu':
             default:
                 return(
