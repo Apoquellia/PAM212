@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
 import { View, Text, Button, ActivityIndicator, StyleSheet } from 'react-native-web';
 
-export default function ActivityIndicator() {
+
+export default function ActivityIndicatorScreen() {
+
 
 const [cargando, setCargando] = useState(false);
 
+
 const iniciarCarga = () => {setCargando(true);setTimeout(() => setCargando(false), 3000);};
 
+
 const detenerCarga = () => { setCargando(false);};
+
 
 return (
     <View style={styles.container}>
         <Text style={styles.texto}>Práctica: Activity Indicator</Text>
+
 
         <View style={styles.boton}>
         <Button
@@ -20,9 +26,11 @@ return (
         />
         </View>
 
+
         <View style={styles.boton}>
         <Button title="Detener carga" onPress={detenerCarga} />
         </View>
+
 
         <View style={styles.carga}>
         <ActivityIndicator
@@ -35,6 +43,7 @@ return (
     </View>
     );
 }
+
 
 const styles = StyleSheet.create({
 container: {
@@ -64,3 +73,5 @@ textoCarga: {
     color: '#000000',
 },
 });
+
+
