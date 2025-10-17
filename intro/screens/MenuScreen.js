@@ -1,8 +1,10 @@
 import { Text, StyleSheet, View, Button } from 'react-native'
 import React, { useState } from 'react';
 import ContadorScreen from './ContadorScreen';
-import BotonesScreen from './BotonesScreen';
+import BotonesScreen from './botones/BotonesScreen';
 import ActivityIndicatorScreen from './ActivityIndicatorScreen';
+import ScrollViewScreen from './ScrollViewScreen';
+import BotonesScreen2 from './botones/BotonesScreen2';
 
 export default function MenuScreen() {
     const [screen,setScreen] = useState('menu');
@@ -11,9 +13,14 @@ export default function MenuScreen() {
         case 'contador':
             return <ContadorScreen/>;
         case 'botones': 
-            return <BotonesScreen/>;
+            return <BotonesScreen2/>;
+        case 'switch':
+            return<BotonesScreen/>
         case 'activityIndicator':
             return <ActivityIndicatorScreen/>;
+        case 'scrollView':
+            return <ScrollViewScreen/>;
+        
         case 'menu':
             default:
                 return(
@@ -22,6 +29,7 @@ export default function MenuScreen() {
                 <View style={styles.contenedorBotones}>
         <Button onPress={()=>setScreen('contador')} title = 'Pract:Contador'/>
         <Button onPress={()=>setScreen('botones')} title = 'Pract:Botones' />
+        <Button onPress={()=>setScreen('switch')} title = 'Pract:Switch' />
         <Button onPress={()=>setScreen('textInput')} title = 'Pract:TextInput' />
         <Button onPress={()=>setScreen('imageBackground')} title = 'Pract:ImageBackground' />
         <Button onPress={()=>setScreen('scrollView')} title = 'Pract:ScrollView' />
