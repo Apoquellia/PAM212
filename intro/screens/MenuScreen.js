@@ -4,6 +4,7 @@ import ContadorScreen from './ContadorScreen';
 import BotonesScreen from './botones/BotonesScreen';
 import ActivityIndicatorScreen from './ActivityIndicatorScreen';
 import ScrollViewScreen from './ScrollViewScreen';
+import TextScreen from './TextScreen'
 import BotonesScreen2 from './botones/BotonesScreen2';
 
 export default function MenuScreen() {
@@ -18,9 +19,12 @@ export default function MenuScreen() {
             return<BotonesScreen/>
         case 'activityIndicator':
             return <ActivityIndicatorScreen/>;
+        case 'textScreen':
+            return <TextScreen/>;
         case 'scrollView':
             return <ScrollViewScreen/>;
         
+
         case 'menu':
             default:
                 return(
@@ -30,7 +34,7 @@ export default function MenuScreen() {
         <Button onPress={()=>setScreen('contador')} title = 'Pract:Contador'/>
         <Button onPress={()=>setScreen('botones')} title = 'Pract:Botones' />
         <Button onPress={()=>setScreen('switch')} title = 'Pract:Switch' />
-        <Button onPress={()=>setScreen('textInput')} title = 'Pract:TextInput' />
+        <Button onPress={()=>setScreen('textScreen')} title = 'Pract:TextInput' />
         <Button onPress={()=>setScreen('imageBackground')} title = 'Pract:ImageBackground' />
         <Button onPress={()=>setScreen('scrollView')} title = 'Pract:ScrollView' />
         <Button onPress={()=>setScreen('activityIndicator')} title = 'Pract:ActivityIndicator' />
