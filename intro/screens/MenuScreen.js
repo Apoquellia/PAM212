@@ -6,6 +6,7 @@ import ActivityIndicatorScreen from './ActivityIndicatorScreen';
 import ScrollViewScreen from './ScrollViewScreen';
 import TextScreen from './TextScreen'
 import BotonesScreen2 from './botones/BotonesScreen2';
+import SplashScreenPro from './ImageBackgroundScreen';
 
 export default function MenuScreen() {
     const [screen,setScreen] = useState('menu');
@@ -23,6 +24,8 @@ export default function MenuScreen() {
             return <TextScreen/>;
         case 'scrollView':
             return <ScrollViewScreen/>;
+        case 'ImageBackground':
+            return <SplashScreenPro/>;
         
 
         case 'menu':
@@ -35,7 +38,7 @@ export default function MenuScreen() {
         <Button onPress={()=>setScreen('botones')} title = 'Pract:Botones' />
         <Button onPress={()=>setScreen('switch')} title = 'Pract:Switch' />
         <Button onPress={()=>setScreen('textScreen')} title = 'Pract:TextInput' />
-        <Button onPress={()=>setScreen('imageBackground')} title = 'Pract:ImageBackground' />
+        <Button onPress={()=>setScreen('ImageBackground')} title = 'Pract:ImageBackground' />
         <Button onPress={()=>setScreen('scrollView')} title = 'Pract:ScrollView' />
         <Button onPress={()=>setScreen('activityIndicator')} title = 'Pract:ActivityIndicator' />
         <Button onPress={()=>setScreen('flatList')} title = 'Pract:FlatList' />
