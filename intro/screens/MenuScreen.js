@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 import ContadorScreen from './ContadorScreen';
 import BotonesScreen from './botones/BotonesScreen';
 import ActivityIndicatorScreen from './ActivityIndicatorScreen';
-import ScrollViewScreen from './ScrollViewScreen';
 import TextScreen from './TextScreen'
 import BotonesScreen2 from './botones/BotonesScreen2';
 import SplashScreenPro from './ImageBackgroundScreen';
+import Repaso1Screen from './Repaso1Screen';
+import SimpleScrollView from './ScrollViewVerticalScreen';
 
 export default function MenuScreen() {
     const [screen,setScreen] = useState('menu');
@@ -22,10 +23,12 @@ export default function MenuScreen() {
             return <ActivityIndicatorScreen/>;
         case 'textScreen':
             return <TextScreen/>;
-        case 'scrollView':
-            return <ScrollViewScreen/>;
+        case 'scrollViewH':
+            return <SimpleScrollView/>;
         case 'ImageBackground':
             return <SplashScreenPro/>;
+        case 'repaso1':
+            return <Repaso1Screen/>
         
 
         case 'menu':
@@ -39,7 +42,8 @@ export default function MenuScreen() {
         <Button onPress={()=>setScreen('switch')} title = 'Pract:Switch' />
         <Button onPress={()=>setScreen('textScreen')} title = 'Pract:TextInput' />
         <Button onPress={()=>setScreen('ImageBackground')} title = 'Pract:ImageBackground' />
-        <Button onPress={()=>setScreen('scrollView')} title = 'Pract:ScrollView' />
+        <Button onPress={()=>setScreen('repaso1')} title = 'Repaso 1' />
+        <Button onPress={()=>setScreen('scrollViewH')} title = 'Pract:ScrollView' />
         <Button onPress={()=>setScreen('activityIndicator')} title = 'Pract:ActivityIndicator' />
         <Button onPress={()=>setScreen('flatList')} title = 'Pract:FlatList' />
         <Button onPress={()=>setScreen('modal')} title = 'Pract:Modal' />
@@ -57,10 +61,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
-    contenedorBotones:{
-        marginTop:15,
-        flexDirection:'line',
-        gap:20,
+    contenedorBotones: {
+        marginTop: 20,
+        flexDirection: 'line',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 16,
+        paddingVertical: 10,
+        backgroundColor: '#f5f5f5',
+        borderRadius: 12,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 4,
+        elevation: 3, 
     },
 
-    });
+
+});
