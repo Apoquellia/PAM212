@@ -62,20 +62,19 @@ const styles = StyleSheet.create({
     },
 
     contenedorBotones: {
-        marginTop: 20,
-        flexDirection: 'line',
-        justifyContent: 'center',
+        marginTop: 25,
+        flexDirection: 'column',
         alignItems: 'center',
-        gap: 16,
+        justifyContent: 'center',
+        gap: 15, 
         paddingVertical: 10,
-        backgroundColor: '#f5f5f5',
-        borderRadius: 12,
+        paddingHorizontal: 20,
+        backgroundColor: '#f5f5f5', 
         shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 4,
-        elevation: 3, 
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.15,
+        shadowRadius: 6,
+        elevation: 4, 
     },
-
 
 });

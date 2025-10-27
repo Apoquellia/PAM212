@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View} from 'react-native-web';
+import { ScrollView, StyleSheet, Text, View} from 'react-native';
 
 const DATA = [
   {id:1},
