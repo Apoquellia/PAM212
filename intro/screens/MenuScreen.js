@@ -1,4 +1,4 @@
-import { Text, StyleSheet, View, Button } from 'react-native'
+import { Text, StyleSheet, View, Button, ScrollView } from 'react-native'
 import React, { useState } from 'react';
 import ContadorScreen from './ContadorScreen';
 import BotonesScreen from './botones/BotonesScreen';
@@ -8,6 +8,7 @@ import BotonesScreen2 from './botones/BotonesScreen2';
 import SplashScreenPro from './ImageBackgroundScreen';
 import Repaso1Screen from './Repaso1Screen';
 import SimpleScrollView from './ScrollViewVerticalScreen';
+import FlatListScreen from './FlatListScreen';
 
 export default function MenuScreen() {
     const [screen,setScreen] = useState('menu');
@@ -29,6 +30,8 @@ export default function MenuScreen() {
             return <SplashScreenPro/>;
         case 'repaso1':
             return <Repaso1Screen/>
+        case 'flatList':
+            return <FlatListScreen/>
         
 
         case 'menu':
@@ -36,7 +39,8 @@ export default function MenuScreen() {
                 return(
     <View style={styles.container}>
         <Text>Menu de Practicas</Text>
-                <View style={styles.contenedorBotones}>
+            <ScrollView>
+        <View style={styles.contenedorBotones}>
         <Button onPress={()=>setScreen('contador')} title = 'Pract:Contador'/>
         <Button onPress={()=>setScreen('botones')} title = 'Pract:Botones' />
         <Button onPress={()=>setScreen('switch')} title = 'Pract:Switch' />
@@ -49,6 +53,7 @@ export default function MenuScreen() {
         <Button onPress={()=>setScreen('modal')} title = 'Pract:Modal' />
         <Button onPress={()=>setScreen('bottomSheet')} title = 'Pract:BottomSheet' />
                 </View>
+            </ScrollView>
     </View>
                     )
                 }

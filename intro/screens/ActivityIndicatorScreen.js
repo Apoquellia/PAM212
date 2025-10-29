@@ -20,7 +20,7 @@ return (
 
 
         <View style={styles.boton}>
-        <Button
+        <Button color = 'green'
             title={cargando ? 'Cargando...' : 'Iniciar carga'}
             onPress={iniciarCarga}
         />
@@ -28,17 +28,22 @@ return (
 
 
         <View style={styles.boton}>
-        <Button title="Detener carga" onPress={detenerCarga} />
+        <Button color = 'red'
+            title="Detener carga" onPress={detenerCarga} />
         </View>
 
 
         <View style={styles.carga}>
         <ActivityIndicator
             size="large"
-            color="#007bff"
+            color="#000000ff"
             animating={cargando}          
             hidesWhenStopped={true}      
         />
+
+        <Text style={styles.textoCarga}>
+            {cargando ? 'Cargando datos...' : 'Presiona el botón verde :)'}
+        </Text>
         </View>
     </View>
     );
@@ -73,5 +78,3 @@ textoCarga: {
     color: '#000000',
 },
 });
-
-
