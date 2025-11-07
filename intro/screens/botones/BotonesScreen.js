@@ -16,7 +16,7 @@ export default function BotonesScreen() {
     },
     {
       id: 3,
-      title: 'WiFi',
+      title: 'WiFi',  
       value: false
     },
     {

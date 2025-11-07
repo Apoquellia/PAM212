@@ -1,62 +1,69 @@
 import React, { useEffect, useRef, useState } from "react";
-import {View,Text,Animated,StyleSheet,Dimensions,ImageBackground,} from "react-native";
+import {
+  View,
+  Text,
+  Animated,
+  StyleSheet,
+  Dimensions,
+  ImageBackground,
+} from "react-native";
 import * as SplashScreen from "expo-splash-screen";
-
-SplashScreen.preventAutoHideAsync();
 
 const { height } = Dimensions.get("window");
 
 export default function SplashScreenPro() {
-    const [showMain, setShowMain] = useState(false); 
+  const [showMain, setShowMain] = useState(false);
 
-
-    const fadeLogo = useRef(new Animated.Value(0)).current;
-    const scaleLogo = useRef(new Animated.Value(0.5)).current;
-    const rotateLogo = useRef(new Animated.Value(0)).current;
-    const slideText = useRef(new Animated.Value(height / 2)).current;
-    const fadeOut = useRef(new Animated.Value(1)).current;
+  const fadeLogo = useRef(new Animated.Value(0)).current;
+  const scaleLogo = useRef(new Animated.Value(0.5)).current;
+  const rotateLogo = useRef(new Animated.Value(0)).current;
+  const slideText = useRef(new Animated.Value(height / 2)).current;
+  const fadeOut = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    
-    Animated.parallel([
-      Animated.timing(fadeLogo, {
-        toValue: 1,
-        duration: 1200,
-        useNativeDriver: false,
-      }),
-      Animated.spring(scaleLogo, {
-        toValue: 1,
-        friction: 5,
-        useNativeDriver: false,
-      }),
-      Animated.timing(rotateLogo, {
-        toValue: 1,
-        duration: 1200,
-        useNativeDriver: false,
-      }),
-    ]).start();
+    const startAnimation = async () => {
+      await SplashScreen.preventAutoHideAsync();
 
-    
-    Animated.timing(slideText, {
-      toValue: 0,
-      duration: 1000,
-      useNativeDriver: false,
-      delay: 800,
-    }).start();
+      Animated.parallel([
+        Animated.timing(fadeLogo, {
+          toValue: 1,
+          duration: 1200,
+          useNativeDriver: true,
+        }),
+        Animated.spring(scaleLogo, {
+          toValue: 1,
+          friction: 5,
+          useNativeDriver: true,
+        }),
+        Animated.timing(rotateLogo, {
+          toValue: 1,
+          duration: 1200,
+          useNativeDriver: true,
+        }),
+      ]).start();
 
-
-    const timer = setTimeout(async () => {
-      Animated.timing(fadeOut, {
+      Animated.timing(slideText, {
         toValue: 0,
-        duration: 800,
-        useNativeDriver: false,
-      }).start(async () => {
-        await SplashScreen.hideAsync(); 
-        setShowMain(true); 
-      });
-    }, 3000);
+        duration: 1000,
+        useNativeDriver: true,
+        delay: 800,
+      }).start();
 
-    return () => clearTimeout(timer);
+      const timer = setTimeout(async () => {
+        Animated.timing(fadeOut, {
+          toValue: 0,
+          duration: 800,
+          useNativeDriver: true,
+        }).start(async () => {
+          await SplashScreen.hideAsync();
+          setShowMain(true);
+        });
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    };
+
+    startAnimation();
   }, []);
 
   const rotateInterpolate = rotateLogo.interpolate({
@@ -67,7 +74,7 @@ export default function SplashScreenPro() {
   if (showMain) {
     return (
       <ImageBackground
-        source={require("../assets//TranscodedWallpaper.jpg")}
+        source={require("../assets/TranscodedWallpaper.jpg")}
         style={styles.background}
         resizeMode="cover"
       >
@@ -78,7 +85,6 @@ export default function SplashScreenPro() {
     );
   }
 
-  // Splash animado
   return (
     <Animated.View style={[styles.container, { opacity: fadeOut }]}>
       <Animated.Image
@@ -97,22 +103,6 @@ export default function SplashScreenPro() {
       >
         ¡ImageBackground & Splash Screen!
       </Animated.Text>
-      <Animated.View
-        style={[
-          styles.loader,
-          {
-            opacity: fadeLogo,
-            transform: [
-              {
-                translateX: slideText.interpolate({
-                  inputRange: [0, height / 2],
-                  outputRange: [0, -50],
-                }),
-              },
-            ],
-          },
-        ]}
-      />
     </Animated.View>
   );
 }
@@ -120,15 +110,9 @@ export default function SplashScreenPro() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#007bffff",
+    backgroundColor: "#007bff",
     justifyContent: "center",
     alignItems: "center",
-  },
-  loader: {
-    width: 60,
-    height: 6,
-    backgroundColor: "#fff",
-    borderRadius: 3,
   },
   logoImage: {
     width: 300,
@@ -136,9 +120,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   background: {
-    flex: 1, 
-    width: "100%", 
-    height: "100%", 
+    flex: 1,
+    width: "100%",
+    height: "100%",
     justifyContent: "center",
     alignItems: "center",
   },
