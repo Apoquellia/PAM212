@@ -9,6 +9,8 @@ import SplashScreenPro from './ImageBackgroundScreen';
 import Repaso1Screen from './Repaso1Screen';
 import SimpleScrollView from './ScrollViewVerticalScreen';
 import FlatListScreen from './FlatListScreen';
+import ModalScreen from './ModalScreen';
+import BottomSheetScreen from './BottomSheetScreen';
 
 export default function MenuScreen() {
     const [screen,setScreen] = useState('menu');
@@ -32,6 +34,10 @@ export default function MenuScreen() {
             return <Repaso1Screen/>
         case 'flatList':
             return <FlatListScreen/>
+        case 'modal':
+            return <ModalScreen/>
+        case 'bottomSheet':
+            return <BottomSheetScreen/>
         
 
         case 'menu':
