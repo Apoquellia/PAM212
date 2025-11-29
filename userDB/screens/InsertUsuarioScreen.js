@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Alert, ActivityIndicator, Platform } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Alert, ActivityIndicator, Platform, Modal } from 'react-native';
 import { UsuarioController } from '../controllers/UsuarioController';
 
 const controller = new UsuarioController();
@@ -10,6 +10,9 @@ export default function UsuarioView() {
     const [nombre, setNombre] = useState('');
     const [loading, setLoading] = useState(true);
     const [guardando, setGuardando] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [usuarioEditando, setUsuarioEditando] = useState(null);
+    const [nombreEditando, setNombreEditando] = useState('');
 
     // SELECT - Cargar usuarios desde la BD
     const cargarUsuarios = useCallback(async () => {
@@ -55,6 +58,62 @@ export default function UsuarioView() {
         }
     };
 
+    // UPDATE - Actualizar usuario
+    const handleActualizar = async () => {
+        if (guardando || !usuarioEditando) return;
+        try {
+            setGuardando(true);
+            await controller.actualizarUsuario(usuarioEditando.id, nombreEditando);
+            Alert.alert('Éxito', `Usuario actualizado correctamente`);
+            setModalVisible(false);
+            setUsuarioEditando(null);
+            setNombreEditando('');
+        } catch (error) {
+            Alert.alert('Error', error.message);
+        } finally {
+            setGuardando(false);
+        }
+    };
+
+    // DELETE - Eliminar usuario
+    const handleEliminar = async (usuario) => {
+        if (Platform.OS === 'web') {
+            alert('Eliminando');
+                await controller.eliminarUsuario(usuario.id);
+            
+        } else {
+        Alert.alert(
+            'Eliminar Usuario',
+            `¿Estás seguro que deseas eliminar a "${usuario.nombre}"?`,
+            [
+                { text: 'Cancelar', onPress: () => {} },
+                {
+                    text: 'Eliminar',
+                    onPress: async () => {
+                        try {
+                            setGuardando(true);
+                            await controller.eliminarUsuario(usuario.id);
+                            Alert.alert('Éxito', 'Usuario eliminado.');
+                        } catch (error) {
+                            Alert.alert('Error', error.message);
+                        } finally {
+                            setGuardando(false);
+                        }
+                    },
+                    style: 'destructive',
+                },
+            ]
+        );
+        }
+    };
+
+    // Abrir modal para editar
+    const handleAbrilModal = (usuario) => {
+        setUsuarioEditando(usuario);
+        setNombreEditando(usuario.nombre);
+        setModalVisible(true);
+    };
+
     // Renderizar cada usuario
     const renderUsuario = ({ item, index }) => (
         <View style={styles.userItem}>
@@ -72,6 +131,20 @@ export default function UsuarioView() {
                     })}
                 </Text>
             </View>
+            <View style={styles.userButtons}>
+                <TouchableOpacity 
+                    style={styles.editButton}
+                    onPress={() => handleAbrilModal(item)}
+                >
+                    <Text style={styles.editButtonText}>Editar</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={styles.deleteButton}
+                    onPress={() => handleEliminar(item)}
+                >
+                    <Text style={styles.deleteButtonText}>Eliminar</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 
@@ -79,7 +152,7 @@ export default function UsuarioView() {
         <View style={styles.container}>
 
             {/* Zona del encabezado */}
-            <Text style={styles.title}> INSERT & SELECT</Text>
+            <Text style={styles.title}> INSERT, SELECT, UPDATE & DELETE</Text>
             <Text style={styles.subtitle}>
                 {Platform.OS === 'web' ? ' WEB (LocalStorage)' : ` ${Platform.OS.toUpperCase()} (SQLite)`}
             </Text>
@@ -139,6 +212,48 @@ export default function UsuarioView() {
                     />
                 )}
             </View>
+
+            {/* Modal para actualizar usuario */}
+            <Modal
+                visible={modalVisible}
+                transparent={true}
+                animationType="slide"
+                onRequestClose={() => setModalVisible(false)}
+            >
+                <View style={styles.modalContainer}>
+                    <View style={styles.modalContent}>
+                        <Text style={styles.modalTitle}>Actualizar Usuario</Text>
+                        
+                        <TextInput
+                            style={styles.modalInput}
+                            placeholder="Nuevo nombre"
+                            value={nombreEditando}
+                            onChangeText={setNombreEditando}
+                            editable={!guardando}
+                        />
+
+                        <View style={styles.modalButtons}>
+                            <TouchableOpacity 
+                                style={[styles.modalButtonCancel, guardando && styles.buttonDisabled]}
+                                onPress={() => setModalVisible(false)}
+                                disabled={guardando}
+                            >
+                                <Text style={styles.modalButtonCancelText}>Cancelar</Text>
+                            </TouchableOpacity>
+                            
+                            <TouchableOpacity 
+                                style={[styles.modalButtonConfirm, guardando && styles.buttonDisabled]}
+                                onPress={handleActualizar}
+                                disabled={guardando}
+                            >
+                                <Text style={styles.modalButtonConfirmText}>
+                                    {guardando ? 'Guardando...' : 'Actualizar'}
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 }
@@ -150,11 +265,12 @@ const styles = StyleSheet.create({
         paddingTop: 50,
     },
     title: {
-        fontSize: 28,
+        fontSize: 25,
         fontWeight: 'bold',
         textAlign: 'center',
         color: '#333',
         marginBottom: 5,
+        marginTop:5 
     },
     subtitle: {
         fontSize: 14,
@@ -281,6 +397,32 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#666',
     },
+    userButtons: {
+        justifyContent: 'center',
+        gap: 8,
+    },
+    editButton: {
+        backgroundColor: '#34C759',
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        borderRadius: 6,
+    },
+    editButtonText: {
+        color: '#fff',
+        fontSize: 12,
+        fontWeight: '600',
+    },
+    deleteButton: {
+        backgroundColor: '#FF3B30',
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        borderRadius: 6,
+    },
+    deleteButtonText: {
+        color: '#fff',
+        fontSize: 12,
+        fontWeight: '600',
+    },
     emptyContainer: {
         alignItems: 'center',
         paddingVertical: 40,
@@ -321,5 +463,61 @@ const styles = StyleSheet.create({
     bold: {
         fontWeight: 'bold',
         color: '#1976D2',
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+        backgroundColor: '#fff',
+        borderRadius: 12,
+        padding: 20,
+        width: '80%',
+        maxWidth: 400,
+    },
+    modalTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#333',
+        marginBottom: 15,
+    },
+    modalInput: {
+        borderWidth: 1,
+        borderColor: '#e0e0e0',
+        borderRadius: 8,
+        padding: 12,
+        marginBottom: 20,
+        fontSize: 16,
+        backgroundColor: '#fafafa',
+    },
+    modalButtons: {
+        flexDirection: 'row',
+        gap: 10,
+    },
+    modalButtonCancel: {
+        flex: 1,
+        backgroundColor: '#ccc',
+        padding: 12,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    modalButtonCancelText: {
+        color: '#333',
+        fontSize: 14,
+        fontWeight: '600',
+    },
+    modalButtonConfirm: {
+        flex: 1,
+        backgroundColor: '#34C759',
+        padding: 12,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    modalButtonConfirmText: {
+        color: '#fff',
+        fontSize: 14,
+        fontWeight: '600',
     },
 });
